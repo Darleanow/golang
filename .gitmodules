@@ -1,0 +1,3 @@
+[submodule "cours"]
+	path = cours
+	url = https://github.com/Laudroid/Live-Cours-Go-AL.git

@@ -1,0 +1,10 @@
+# Compiled binaries (one per exercise directory)
+exercise-1-hello/exercise-1-hello
+# exo 1 énoncé builds with `go build main.go`, producing `main`
+exercise-1-hello/main
+exercise-2a-types/exercise-2a-types
+exercise-2b-variadic/exercise-2b-variadic
+exercise-2c-inventory/exercise-2c-inventory
+
+# Go workspace local settings
+go.work.sum

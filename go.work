@@ -1,0 +1,10 @@
+go 1.26.4
+
+use (
+	./exercise-1-hello
+	./exercise-2a-types
+	./exercise-2b-variadic
+	./exercise-2c-inventory
+	./exercise-3a-structs
+	./exercise-3b-interfaces
+)
