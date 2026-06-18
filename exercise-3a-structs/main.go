@@ -106,7 +106,7 @@ func NewCircle(center Point, radius float64) (Circle, error) {
 }
 
 func exercise1Rectangle() {
-	fmt.Println("Exercice 1 — Point et Rectangle")
+	fmt.Println("Exercice 1 - Point et Rectangle")
 
 	p1 := Point{X: 1, Y: 2}
 	p2 := Point{X: 4, Y: 6}
@@ -124,7 +124,7 @@ func exercise1Rectangle() {
 }
 
 func exercise2Circle() {
-	fmt.Println("\nExercice 2 — Cercle")
+	fmt.Println("\nExercice 2 - Cercle")
 
 	c := Circle{Center: Point{X: 1, Y: 1}, Radius: 2}
 	fmt.Printf("Surface       : %.2f\n", c.Area())
@@ -138,7 +138,7 @@ func exercise2Circle() {
 }
 
 func exercise3Improvements() {
-	fmt.Println("\nExercice 3 — Améliorations")
+	fmt.Println("\nExercice 3 - Améliorations")
 
 	rect := Rectangle{Min: Point{X: 0, Y: 0}, Max: Point{X: 5, Y: 3}}
 	circle := Circle{Center: Point{X: 1, Y: 1}, Radius: 2}

@@ -1,4 +1,4 @@
-# Exercice 3.2 — Questions de réflexion
+# Exercice 3.2 - Questions de réflexion
 
 ## 1. Avantage de l'implémentation implicite des interfaces
 

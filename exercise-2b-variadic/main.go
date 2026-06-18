@@ -58,7 +58,7 @@ func AnalyserDonneesCapteur(readings ...float64) (minVal, maxVal, average float6
 }
 
 func main() {
-	fmt.Println("Exercice 1 — Statistiques de base")
+	fmt.Println("Exercice 1 - Statistiques de base")
 	somme, nombre, moyenne := CalculerStatistiquesBase(10, 20, 30, 40)
 	fmt.Printf("Somme : %d, Nombre : %d, Moyenne : %.2f\n", somme, nombre, moyenne)
 
@@ -68,7 +68,7 @@ func main() {
 	somme, nombre, moyenne = CalculerStatistiquesBase()
 	fmt.Printf("Vide : Somme : %d, Nombre : %d, Moyenne : %.2f\n", somme, nombre, moyenne)
 
-	fmt.Println("\nExercice 2 — Statistiques complètes")
+	fmt.Println("\nExercice 2 - Statistiques complètes")
 	if lo, hi, total, mean, n, err := CalculerStatistiquesCompletes(1.5, 2.8, 0.7, 3.1); err != nil {
 		fmt.Println("Erreur :", err)
 	} else {
@@ -78,7 +78,7 @@ func main() {
 		fmt.Println("Entrée vide :", err)
 	}
 
-	fmt.Println("\nExercice 3 — Analyse de données de capteur")
+	fmt.Println("\nExercice 3 - Analyse de données de capteur")
 	if lo, hi, mean, ok, ko, err := AnalyserDonneesCapteur(22.5, 23.1, -5.0, 101.0, 21.9, 0.0, 24.0); err != nil {
 		fmt.Println("Erreur d'analyse :", err)
 	} else {

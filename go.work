@@ -7,4 +7,5 @@ use (
 	./exercise-2c-inventory
 	./exercise-3a-structs
 	./exercise-3b-interfaces
+	./exercise-4a-goroutines
 )

@@ -1,6 +1,6 @@
-# Exercice 3 — Questions de réflexion
+# Exercice 3 - Questions de réflexion
 
-## 3.2 — Empêcher les dimensions invalides
+## 3.2 - Empêcher les dimensions invalides
 
 Pour interdire un rectangle ou un cercle aux dimensions négatives, on n'expose
 pas la construction directe par littéral : on passe par une fonction
@@ -10,7 +10,7 @@ C'est ce que font `NewRectangle` et `NewCircle` dans le code : elles vérifient
 les invariants (`Max >= Min`, `Radius >= 0`) et renvoient une erreur explicite
 si la donnée est invalide, plutôt que de produire une forme incohérente.
 
-## 3.3 — Receiver de valeur vs receiver de pointeur
+## 3.3 - Receiver de valeur vs receiver de pointeur
 
 **Receiver de valeur** (`func (r Rectangle)`) : la méthode reçoit une *copie*
 de la structure. Toute modification reste locale à la copie et ne touche pas

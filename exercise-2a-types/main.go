@@ -4,7 +4,7 @@ package main
 import "fmt"
 
 func explicitDeclarations() {
-	fmt.Println("Exercice 1 — Déclarations explicites")
+	fmt.Println("Exercice 1 - Déclarations explicites")
 
 	var userName string = "Darleanow"
 	var userAge int = 23
@@ -18,7 +18,7 @@ func explicitDeclarations() {
 }
 
 func typeInference() {
-	fmt.Println("\nExercice 2 — Inférence de type (:=)")
+	fmt.Println("\nExercice 2 - Inférence de type (:=)")
 
 	city := "Rennes"
 	postalCode := 35000
@@ -30,7 +30,7 @@ func typeInference() {
 }
 
 func constants() {
-	fmt.Println("\nExercice 3 — Constantes")
+	fmt.Println("\nExercice 3 - Constantes")
 
 	const pi = 3.14159
 	const appName = "Gestionnaire Go"
@@ -45,7 +45,7 @@ func constants() {
 }
 
 func reassignmentAndZeroValues() {
-	fmt.Println("\nExercice 4 — Réaffectation et valeurs par défaut")
+	fmt.Println("\nExercice 4 - Réaffectation et valeurs par défaut")
 
 	userAge := 23
 	fmt.Println("Âge avant anniversaire :", userAge)

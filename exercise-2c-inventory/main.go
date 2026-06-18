@@ -8,7 +8,7 @@ import (
 )
 
 func partie1Categories() {
-	fmt.Println("Partie 1 — Catégories (slices)")
+	fmt.Println("Partie 1 - Catégories (slices)")
 
 	categories := []string{"Électronique", "Vêtements", "Livres"}
 	categories = append(categories, "Alimentation", "Jouets")
@@ -29,7 +29,7 @@ func partie1Categories() {
 }
 
 func partie2Produits() (map[int]Produit, map[int]int) {
-	fmt.Println("\nPartie 2 — Produits et stock (maps)")
+	fmt.Println("\nPartie 2 - Produits et stock (maps)")
 
 	inventaire := make(map[int]Produit)
 	stock := make(map[int]int)
@@ -84,7 +84,7 @@ func partie2Produits() (map[int]Produit, map[int]int) {
 }
 
 func partie3Combinaison(inventaire map[int]Produit, stock map[int]int) {
-	fmt.Println("\nPartie 3a — Tri et index par catégorie")
+	fmt.Println("\nPartie 3a - Tri et index par catégorie")
 
 	parCategorie := indexerParCategorie(inventaire)
 	listerProduitsParCategorie("Électronique", inventaire, parCategorie)
@@ -101,7 +101,7 @@ func partie3Combinaison(inventaire map[int]Produit, stock map[int]int) {
 }
 
 func partie3Performance() {
-	fmt.Println("\nPartie 3b — Performance des maps")
+	fmt.Println("\nPartie 3b - Performance des maps")
 
 	const totalProduits = 100_000
 	familles := []string{"Électronique", "Vêtements", "Livres", "Alimentation", "Jouets"}

@@ -5,6 +5,9 @@ exercise-1-hello/main
 exercise-2a-types/exercise-2a-types
 exercise-2b-variadic/exercise-2b-variadic
 exercise-2c-inventory/exercise-2c-inventory
+exercise-3a-structs/exercise-3a-structs
+exercise-3b-interfaces/exercise-3b-interfaces
+exercise-4a-goroutines/exercise-4a-goroutines
 
 # Go workspace local settings
 go.work.sum
