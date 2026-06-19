@@ -20,6 +20,8 @@ func exercice1() {
 	}
 	fmt.Println("Toutes les goroutines lancées.")
 
+	// 600 ms > 300 ms max from simulerTravail, so goroutines will likely finish
+	// but it is not guaranteed. WaitGroup in exercice2 is the real fix.
 	time.Sleep(600 * time.Millisecond)
 }
 
