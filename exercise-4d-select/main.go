@@ -9,7 +9,7 @@ import (
 )
 
 // dataProducer and alertProducer both accept a quit channel so they exit
-// cleanly when the shutdown signal fires — no goroutine leak after main returns.
+// cleanly when the shutdown signal fires - no goroutine leak after main returns.
 func dataProducer(dataChannel chan<- string, quit <-chan struct{}) {
 	for {
 		delai := time.Duration(1+rand.Intn(3)) * time.Second

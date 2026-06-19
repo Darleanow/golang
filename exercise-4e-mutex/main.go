@@ -25,7 +25,7 @@ func incrementerNonSync(wg *sync.WaitGroup) {
 }
 
 func etape1() {
-	fmt.Println("Étape 1 — Sans synchronisation (race condition)")
+	fmt.Println("Étape 1 - Sans synchronisation (race condition)")
 	compteurNonSync = 0
 	var wg sync.WaitGroup
 	for range nbGoroutines {
@@ -33,7 +33,7 @@ func etape1() {
 		go incrementerNonSync(&wg)
 	}
 	wg.Wait()
-	fmt.Printf("  Résultat : %d  (attendu : %d)  — correct : %v\n\n",
+	fmt.Printf("  Résultat : %d  (attendu : %d)  - correct : %v\n\n",
 		compteurNonSync, valeurAttendue, compteurNonSync == valeurAttendue)
 }
 
@@ -52,7 +52,7 @@ func incrementerMutex(wg *sync.WaitGroup) {
 }
 
 func etape2() {
-	fmt.Println("Étape 2 — Avec sync.Mutex")
+	fmt.Println("Étape 2 - Avec sync.Mutex")
 	compteurMutex = 0
 	var wg sync.WaitGroup
 	for range nbGoroutines {
@@ -60,12 +60,12 @@ func etape2() {
 		go incrementerMutex(&wg)
 	}
 	wg.Wait()
-	fmt.Printf("  Résultat : %d  (attendu : %d)  — correct : %v\n\n",
+	fmt.Printf("  Résultat : %d  (attendu : %d)  - correct : %v\n\n",
 		compteurMutex, valeurAttendue, compteurMutex == valeurAttendue)
 }
 
 // atomic.AddInt64 is faster than a mutex for a single-variable critical
-// section but cannot protect multi-step logic — the right tool depends on the
+// section but cannot protect multi-step logic - the right tool depends on the
 // complexity of the guarded block.
 var compteurAtomic int64
 
@@ -77,7 +77,7 @@ func incrementerAtomic(wg *sync.WaitGroup) {
 }
 
 func etape3() {
-	fmt.Println("Étape 3 — Avec sync/atomic (bonus)")
+	fmt.Println("Étape 3 - Avec sync/atomic (bonus)")
 	atomic.StoreInt64(&compteurAtomic, 0)
 	var wg sync.WaitGroup
 	for range nbGoroutines {
@@ -86,7 +86,7 @@ func etape3() {
 	}
 	wg.Wait()
 	v := atomic.LoadInt64(&compteurAtomic)
-	fmt.Printf("  Résultat : %d  (attendu : %d)  — correct : %v\n",
+	fmt.Printf("  Résultat : %d  (attendu : %d)  - correct : %v\n",
 		v, valeurAttendue, v == int64(valeurAttendue))
 }
 

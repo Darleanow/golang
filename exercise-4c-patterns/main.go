@@ -60,7 +60,7 @@ func main() {
 	go generateNumbers(numJobs, jobs)
 
 	// Closing results from a goroutine lets main drain it with range while
-	// workers are still running — avoids a separate collection phase after Wait.
+	// workers are still running - avoids a separate collection phase after Wait.
 	go func() {
 		wg.Wait()
 		close(results)
