@@ -8,4 +8,11 @@ use (
 	./exercise-3a-structs
 	./exercise-3b-interfaces
 	./exercise-4a-goroutines
+	./exercise-4c-patterns
+	./exercise-4d-select
+	./exercise-4e-mutex
+	./exercise-4f-context
+	./exercise-5a-nethttp
+	./exercise-5b-gin
+	./exercise-5c-json
 )
