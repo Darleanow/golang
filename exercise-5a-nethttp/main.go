@@ -19,43 +19,37 @@ type Item struct {
 	Description string `json:"description"`
 }
 
-// RWMutex lets multiple readers proceed concurrently while serialising writes -
-// appropriate here because reads (GET) outnumber writes.
 var (
-	mu    sync.RWMutex
+	mu    sync.Mutex
 	items = []Item{
 		{ID: "1", Name: "Clavier mécanique", Description: "Switch Cherry MX Red"},
 		{ID: "2", Name: "Souris gaming", Description: "12 000 DPI, sans fil"},
 	}
 )
 
-func writeJSON(w http.ResponseWriter, status int, v any) {
+func sendJSON(w http.ResponseWriter, status int, v any) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)
 	if err := json.NewEncoder(w).Encode(v); err != nil {
-		log.Printf("writeJSON: %v", err)
+		log.Printf("sendJSON encode error: %v", err)
 	}
-}
-
-func writeError(w http.ResponseWriter, status int, msg string) {
-	writeJSON(w, status, map[string]string{"error": msg})
 }
 
 func itemsHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
-		mu.RLock()
-		defer mu.RUnlock()
-		writeJSON(w, http.StatusOK, items)
+		mu.Lock()
+		defer mu.Unlock()
+		sendJSON(w, http.StatusOK, items)
 
 	case http.MethodPost:
 		var item Item
 		if err := json.NewDecoder(r.Body).Decode(&item); err != nil {
-			writeError(w, http.StatusBadRequest, "corps JSON invalide")
+			sendJSON(w, http.StatusBadRequest, map[string]string{"error": "corps JSON invalide"})
 			return
 		}
 		if item.Name == "" {
-			writeError(w, http.StatusBadRequest, "le champ 'name' est requis")
+			sendJSON(w, http.StatusBadRequest, map[string]string{"error": "le champ 'name' est requis"})
 			return
 		}
 		item.ID = uuid.NewString()
@@ -64,41 +58,41 @@ func itemsHandler(w http.ResponseWriter, r *http.Request) {
 		items = append(items, item)
 		mu.Unlock()
 
-		writeJSON(w, http.StatusCreated, item)
+		sendJSON(w, http.StatusCreated, item)
 
 	default:
-		writeError(w, http.StatusMethodNotAllowed, "méthode non autorisée")
+		sendJSON(w, http.StatusMethodNotAllowed, map[string]string{"error": "méthode non autorisée"})
 	}
 }
 
 func itemByIDHandler(w http.ResponseWriter, r *http.Request) {
 	id := strings.TrimPrefix(r.URL.Path, "/items/")
 	if id == "" {
-		writeError(w, http.StatusBadRequest, "id manquant dans l'URL")
+		sendJSON(w, http.StatusBadRequest, map[string]string{"error": "id manquant"})
 		return
 	}
 
 	switch r.Method {
 	case http.MethodGet:
-		mu.RLock()
-		defer mu.RUnlock()
+		mu.Lock()
+		defer mu.Unlock()
 		for _, it := range items {
 			if it.ID == id {
-				writeJSON(w, http.StatusOK, it)
+				sendJSON(w, http.StatusOK, it)
 				return
 			}
 		}
-		writeError(w, http.StatusNotFound, fmt.Sprintf("item '%s' introuvable", id))
+		sendJSON(w, http.StatusNotFound, map[string]string{"error": fmt.Sprintf("item '%s' introuvable", id)})
 
 	case http.MethodPut:
 		var update Item
 		if err := json.NewDecoder(r.Body).Decode(&update); err != nil {
-			writeError(w, http.StatusBadRequest, "corps JSON invalide")
+			sendJSON(w, http.StatusBadRequest, map[string]string{"error": "corps JSON invalide"})
 			return
 		}
 
 		mu.Lock()
-		defer mu.Unlock()
+		found := false
 		for i, it := range items {
 			if it.ID == id {
 				if update.Name != "" {
@@ -107,32 +101,38 @@ func itemByIDHandler(w http.ResponseWriter, r *http.Request) {
 				if update.Description != "" {
 					items[i].Description = update.Description
 				}
-				writeJSON(w, http.StatusOK, items[i])
-				return
+				result := items[i]
+				mu.Unlock()
+				sendJSON(w, http.StatusOK, result)
+				found = true
+				break
 			}
 		}
-		writeError(w, http.StatusNotFound, fmt.Sprintf("item '%s' introuvable", id))
+		if !found {
+			mu.Unlock()
+			sendJSON(w, http.StatusNotFound, map[string]string{"error": fmt.Sprintf("item '%s' introuvable", id)})
+		}
 
 	case http.MethodDelete:
 		mu.Lock()
-		defer mu.Unlock()
 		for i, it := range items {
 			if it.ID == id {
 				items = append(items[:i], items[i+1:]...)
+				mu.Unlock()
 				w.WriteHeader(http.StatusNoContent)
 				return
 			}
 		}
-		writeError(w, http.StatusNotFound, fmt.Sprintf("item '%s' introuvable", id))
+		mu.Unlock()
+		sendJSON(w, http.StatusNotFound, map[string]string{"error": fmt.Sprintf("item '%s' introuvable", id)})
 
 	default:
-		writeError(w, http.StatusMethodNotAllowed, "méthode non autorisée")
+		sendJSON(w, http.StatusMethodNotAllowed, map[string]string{"error": "méthode non autorisée"})
 	}
 }
 
 func main() {
 	mux := http.NewServeMux()
-	// Trailing slash routes to itemByIDHandler; exact path routes to the collection handler.
 	mux.HandleFunc("/items", itemsHandler)
 	mux.HandleFunc("/items/", itemByIDHandler)
 
